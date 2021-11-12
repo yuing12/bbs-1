@@ -1,0 +1,45 @@
+package plsql;
+
+import java.sql.Connection;
+
+public class ProcedureTest {
+	
+	Connection con;
+	static{
+		try{
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		}
+		catch(ClassNotFoundException cne){
+			cne.printStackTrace();
+		}
+	}
+	public void connect(){
+		try{
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","java04", "java04");
+			System.out.println("Connection Success!");
+		}
+		catch(SQLException se){
+			se.printStackTrace();
+		}
+	}
+
+
+	//저장프로시저 호출전 데이터 입력
+		public void insert() {
+			
+		}
+		
+		
+		public void select(){
+
+
+		}
+	
+	
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

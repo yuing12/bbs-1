@@ -1,0 +1,11 @@
+package plsql;
+
+public class CallInoutProc {
+	public static void main(String[] args) {
+		
+		
+		String p1value = "a";
+		String p2value = "b";
+		String p3value ;
+	}
+}

@@ -1,0 +1,5 @@
+package mmms.member.controller;
+
+public class MemberController {
+
+}

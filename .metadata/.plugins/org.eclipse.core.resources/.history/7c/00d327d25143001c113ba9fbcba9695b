@@ -1,0 +1,15 @@
+package mmms.member.db;
+
+import java.sql.Connection;
+
+public class JdbcUtil {
+
+	
+	
+	
+	
+	//transaction 처리 메소드
+	public static void commit(Connection con) {
+		
+	}
+}
