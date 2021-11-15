@@ -1,0 +1,79 @@
+package mmms.member.dao;
+import java.sql.Connection;
+// 9. Oracle DB로 필요한 SQL 구문을 전송하는 클래스 구현
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import mmms.member.db.JdbcUtil;
+import mmms.member.util.ConsoleUtil;
+import mmms.member.vo.Member;
+
+public class MemberDAO {
+	//연결관련 내용
+	Connection con;
+	PreparedStatement pstmt =null;
+	public MemberDAO(Connection con) {
+		this.con = con;
+	}
+	//1. 회원정보 입력
+	public int insertNewMember(Member newMember) {
+		ConsoleUtil co = new ConsoleUtil();
+		try {
+			String sql = "insert into mms_member values(dept_eaxm_seq.nextval,?,?,?,?,?);";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, newMember.getName());
+			pstmt.setString(2, newMember.getAddr());
+			pstmt.setString(3, newMember.getNation());
+			pstmt.setString(4, newMember.getEmail());
+			pstmt.setInt(5, newMember.getAge());
+			int count = pstmt.executeUpdate();
+			if(count > 0) {
+				co.printAddSuccessMessage(newMember);
+			}else {
+				co.printAddFailMessage(newMember);
+			}
+		} catch (SQLException e) {
+			
+		}finally {
+			JdbcUtil.close(con);
+			try {
+				pstmt.cancel();
+			} catch (SQLException e) {
+			
+			}
+		}
+		
+		return 0;
+
+
+	}
+	
+	//2. 출력
+	public ArrayList<Member> selectMemberList() {
+		ResultSet rs = null;
+		String sql = "select * from mms_member";
+		try {
+		pstmt = con.prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		while(rs.next()) {
+			System.out.print("name: " +rs.getString(2));
+			System.out.print(",addr: " +rs.getString(3));
+			System.out.print(",nation: " +rs.getString(4));
+			System.out.print(",natemail: " +rs.getString(5));
+			System.out.println(",age: " +rs.getString(6));
+		}
+		}catch (SQLException e) {
+
+	}finally {
+		JdbcUtil.close(con);
+		try {
+			pstmt.cancel();
+		} catch (SQLException e) {
+			
+		}
+	}
+		return null;
+	}
+}

@@ -1,9 +1,8 @@
 package p01.db_connection;
 
-import java.sql.Connection;
+import java.sql.Connection; 
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
 //Java => Oracle DB 연결 유무 확인 방법
 public class DBConnection {
 
@@ -11,6 +10,7 @@ public class DBConnection {
 		Connection conn = null;
         try {
 			//Class.forName("java.lang.String");
+        	//ojdbc6_g.jar이 없으면 실행 안된다는걸 알려줌
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 			
@@ -25,3 +25,4 @@ public class DBConnection {
 	}
 
 }
+

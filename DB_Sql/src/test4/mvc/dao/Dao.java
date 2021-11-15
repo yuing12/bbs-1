@@ -1,9 +1,9 @@
 package test4.mvc.dao;
 
 import java.util.Vector;
-
+//인터페이스 : 강제성, 일관성
 import test4.mvc.dto.Product;
-//인터페이스 : 강제성,일관성
+
 public interface Dao {
 	//추상 메소드
 	void insert(Product p);

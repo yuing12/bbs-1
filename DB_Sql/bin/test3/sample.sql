@@ -1,12 +1,19 @@
 --javalink/javalink
-create table book(
-	id varchar2(20) primary key,
-	name varchar2(20),
-	price number(10)
+
+--삭제
+drop table product;
+
+--테이블 만들기
+create table product(
+num number(10) primary key,
+name VARCHAR2(20),
+price number(10)
 );
 
-insert into book values('aaa','hong',1000);
-insert into book values('bbb','hong2',2000);
-insert into book values('ccc','hong3',3000);
 
-select * from book;
+--sequence
+drop sequence product_num_seq;
+create sequence product_num_seq
+start with 0 -- 시작값
+increment by 1 --증가값
+minvalue 0;k;

@@ -9,55 +9,58 @@ import test4.mvc.dto.Product;
 
 public class ServiceImpl implements Service {
 	Scanner sc = new Scanner(System.in);
-	
+
 	Dao dao = new OracleDao();
 
 	@Override
-	public void addProduct() {//insert
-		System.out.println("제품이름은?");
+	public void addProduct() {// insert
+		System.out.print("제품이름 : ");
 		String name = sc.next();
-		System.out.println("제품가격은?");
+		System.out.print("제품가격 :");
 		int price = sc.nextInt();
-		Product p = new Product(0,name, price);
-		dao.insert(p);
+
+		dao.insert(new Product(0, name, price));
 	}
 
 	@Override
-	public Product getProduct() {//select one
-		System.out.println("검색할 번호는? ");
+	public Product getProduct() {// select one
+		System.out.print("검색할 번호 :  ");
 		int num = sc.nextInt();
 		Product p = dao.select(num);
 		return p;
 	}
 
 	@Override
-	public Vector<Product> getProducts() {//select all
-		Vector<Product> v = dao.selectAll();
+	public Vector<Product> getProducts() {// select all
+		Vector<Product> v = dao.selectAll();// 주소값
 		return v;
 	}
 
 	@Override
-	public void delProduct() {//delete
-		System.out.println("삭제할 제품번호");
+	public void delProduct() {// delete
+		System.out.print("삭제할 제품 번호 : ");
 		int num = sc.nextInt();
 		dao.delete(num);
+
 	}
 
 	@Override
-	public void editProduct() {//update
+	public void editProduct() {// update
 		System.out.println("수정할 제품번호:");
-		
 		int num = sc.nextInt();
+		
 		Product p = dao.select(num);
 		System.out.println(p);
 		
 		System.out.println("새 제품이름:");
 		String name = sc.next();
+		
 		System.out.println("새 제품가격:");
 		int price = sc.nextInt();
+		
 		p.setName(name);
 		p.setPrice(price);
-		
+
 		dao.update(p.getNum(), p);
 
 	}

@@ -1,0 +1,23 @@
+Query(쿼리)실행 문
+-- 프로젝트 내에 OJDBC라이브러리를 사용하여 java와 DB(데이터 베이스, 오라클)를 연동
+-Insert/Delete/Update 쿼리문은 데이터 베이스에 영향을 주기 때문에 executeUpdate( ); 를 사용한다.
+
+Statement 클래스
+
+- SQL 구문을 실행하는 역할
+- 스스로는 SQL 구문 이해 못함(구문해석 X) -> 전달역할
+- SQL 관리 O + 연결 정보 X
+-Select 문은 단순 조회이고 데이터에 영향을 끼치지 않는다. executeQuert( );를 사용
+-Select문의 return값은 자료형이 여러개이기 때문에 단정짓기가 어렵다. 
+그래서 기본 자료형 말고 자바에서 만들어 놓은 자료형 ResultSet을 사용
+**ResultSet 은 executeQuery명령으로 만들어진 테이블모양 이라고 생각하면 된다**
+
+
+
+PreparedStatement 클래스
+
+- Statement 클래스의 기능 향상
+- 인자와 관련된 작업이 특화(매개변수)
+- 코드 안정성 높음. 가독성 높음.
+- 코드량이 증가 -> 매개변수를 set해줘야하기 때문에..
+- 텍스트 SQL 호출
