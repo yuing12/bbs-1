@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 import mmms.member.action.Action;
 import mmms.member.action.MemberAddAction;
+import mmms.member.action.MemberListAction;
+import mmms.member.action.MemberModifyAction;
+import mmms.member.action.MemberRemoveAction;
 import mmms.member.controller.MemberController;
 import mmms.member.util.ConsoleUtil;
 
@@ -33,16 +36,23 @@ public class MemberUI {
 				break;
 			case 2 :
 				//2.회원목록보기
+				action = new MemberListAction();
 				break;
 			case 3 :
 				//3.회원정보수정
+				action = new MemberModifyAction();
 				break;
 			case 4 :
 				//4.회원정보삭제
+				action = new MemberRemoveAction();
 				break;
-			default :
+			case 5 :
 				//5. 프로그램 종료
 				isStop = true;
+				System.out.println("프로그램 종료");
+				break;
+			default :
+		//그외 숫자 그냥 끝
 				break;
 			}
 			

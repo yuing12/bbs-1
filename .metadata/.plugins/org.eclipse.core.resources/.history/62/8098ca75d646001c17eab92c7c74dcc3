@@ -1,0 +1,5 @@
+package mmms.member.svc;
+
+public class MemberListService {
+
+}

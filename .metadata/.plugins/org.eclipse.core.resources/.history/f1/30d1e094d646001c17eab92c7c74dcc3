@@ -1,0 +1,58 @@
+package mmms.member.ui;
+
+import java.util.Scanner;
+
+import mmms.member.action.Action;
+import mmms.member.action.MemberAddAction;
+import mmms.member.action.MemberListAction;
+import mmms.member.controller.MemberController;
+import mmms.member.util.ConsoleUtil;
+
+//사용자가 메뉴를 선택할 수 있도록 화면을 구성해 주는 클래스
+public class MemberUI {
+
+	public static void main(String[] args) {
+		boolean isStop = false;
+		Scanner sc = new Scanner(System.in);
+		MemberController memberController = new MemberController();
+		ConsoleUtil co = new ConsoleUtil();
+		do {
+			System.out.println("====회원 관리 프로그램===");
+			System.out.println("1.회원등록");
+			System.out.println("2.회원목록보기");
+			System.out.println("3.회원정보수정");
+			System.out.println("4.회원정보삭제");
+			System.out.println("5.프로그램종료");
+			System.out.print("메뉴번호 : ");
+			int menu = sc.nextInt();
+			Action action = null;
+			switch(menu) {
+			case 1 :
+				//1.회원등록
+				//부모 = 자식
+				action = new MemberAddAction();
+				break;
+			case 2 :
+				//2.회원목록보기
+				action = new MemberListAction();
+				break;
+			case 3 :
+				//3.회원정보수정
+				break;
+			case 4 :
+				//4.회원정보삭제
+				break;
+			default :
+				//5. 프로그램 종료
+				isStop = true;
+				break;
+			}
+			
+			if(action != null) {//혹시 액션이 null이 아닌면 넣어라
+				memberController.processRequest(action, sc);
+			}
+		}while(!isStop);//true
+
+	}
+
+}

@@ -3,6 +3,7 @@ package mmms.member.dao;
 //9. Oracle DB로 필요한 SQL 구문을 전송하는 클래스 구현
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -48,47 +49,111 @@ public class MemberDAO {
 
 	// 2. 회원 목록 보기
 	public ArrayList<Member> selectMemberList() {
-//		PreparedStatement pstmt =null;
-//		//ResultSet rs = null;
-//		String sql = "select * from mms_member";
-//		try {
-//		pstmt = con.prepareStatement(sql);
-//		rs = pstmt.executeQuery();
-//		while(rs.next()) {
-//			System.out.print("name: " +rs.getString(2));
-//			System.out.print(",addr: " +rs.getString(3));
-//			System.out.print(",nation: " +rs.getString(4));
-//			System.out.print(",natemail: " +rs.getString(5));
-//			System.out.println(",age: " +rs.getString(6));
-//		}
-//		}catch (SQLException e) {
-//
-//	}finally {
-//		JdbcUtil.close(con);
-//		try {
-//			pstmt.cancel();
-//		} catch (SQLException e) {
-//			
-//		}
-//	}
-		return null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		// 객체생성
+		ArrayList<Member> memberList = new ArrayList<>();
+		String sql = "SELECT * FROM mms_member";
+		Member member = null;
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			// 그리고 실행된 결과값
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				String name = rs.getString("name");
+				String addr = rs.getString("addr");
+				String nation = rs.getString("nation");
+				String email = rs.getString("email");
+				int age = rs.getInt("age");
+
+				// 한번만 실행하도록 객체를 위로 뻈다.
+				member = new Member(name, addr, nation, email, age);
+				memberList.add(member);
+			}
+		} catch (SQLException e) {
+
+		} finally {// 닫기
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		// 리턴값이 member 주소값
+		return memberList;
 	}
 
 	// 3. 특정 회원정보 정보 보기
 	public Member selectOldMember(String name) {
-		return null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM mms_member where name = ?";
+		Member member = null;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, name);
+			// 그리고 실행된 결과값
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				String name2 = rs.getString("name");
+				String addr = rs.getString("addr");
+				String nation = rs.getString("nation");
+				String email = rs.getString("email");
+				int age = rs.getInt("age");
+
+				// 한번만 실행하도록 객체를 위로 뻈다.
+				member = new Member(name2, addr, nation, email, age);
+			}
+		} catch (SQLException e) {
+		} finally {// 닫기
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		return member;
 
 	}
 
 	// 4. 회원 정보 수정(3활용)
 	public int updateMember(Member updateMember) {
-		return 0;
+		PreparedStatement pstmt = null;
+		int updateCount = 0;
+		String sql = "update mms_member set addr=?, nation=?, email=?, age=? where name=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			// ?값
+			pstmt.setString(1, updateMember.getAddr());
+			pstmt.setString(2, updateMember.getNation());
+			pstmt.setString(3, updateMember.getEmail());
+			pstmt.setInt(4, updateMember.getAge());
+			pstmt.setString(5, updateMember.getName());
+
+			updateCount = pstmt.executeUpdate();// 업데이트를 해서 내용 올리기
+
+		} catch (SQLException e) {
+
+		} finally {
+			JdbcUtil.close(pstmt);
+		}
+
+		return updateCount;// 제대로 업데이트 됐는지는 다른데서 보기
 
 	}
 
 	// 5. 회원 정보 삭제(3활용)
 	public int deleteMember(String name) {
-		return 0;
+		PreparedStatement pstmt = null;
+		String sql = "delete mms_member where name = ?";
+		int deleteCount = 0;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, name);
+			deleteCount = pstmt.executeUpdate();
+
+
+		} catch (SQLException e) {
+		} finally {// 닫기
+			JdbcUtil.close(pstmt);
+		}
+		return deleteCount;
 
 	}
 

@@ -1,0 +1,32 @@
+package mmms.member.action;
+import java.util.ArrayList;
+//7-2. 회원정보 보기
+import java.util.Scanner;
+
+import mmms.member.svc.MemberAddService;
+import mmms.member.svc.MemberListService;
+import mmms.member.svc.MemberModifyService;
+import mmms.member.util.ConsoleUtil;
+import mmms.member.vo.Member;
+
+public class MemberRemoveAction implements Action {
+
+	@Override
+	public void execute(Scanner sc) throws Exception {
+//		기존회원정보 불러오기
+		ConsoleUtil cu = new ConsoleUtil();
+		String name = cu.getName("수정할",sc);//회원등록 입력 완성 내용
+		MemberModifyService membermodifyservice = new MemberModifyService(); // Dao -> service
+		Member oldMember = membermodifyservice.getOldMember(name);
+		//수정시작
+		Member updateMember = cu.getUpdateMember(sc,oldMember);
+		boolean isModifySuccess = membermodifyservice.modifyMemeber(updateMember);
+		if(isModifySuccess) {
+			cu.printModifySuccessMessage(updateMember);
+		}else {
+		cu.printModifyFailMessage(updateMember);
+	
+		}
+	}
+
+}

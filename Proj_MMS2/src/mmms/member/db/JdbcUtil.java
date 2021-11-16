@@ -86,15 +86,7 @@ public class JdbcUtil {
 	}
 	
 	
-//	public static void close(ResultSet rs){
-//		try{
-//			rs.close();
-//		}
-//		catch(SQLException e){
-//			e.printStackTrace();
-//		}
-//	}
-//	
+
 	//두개의 기본 배경 : Connection(연결)을 아직 안닫은 상태에서 실행한다
 	//transaction 처리 메소드
 	//저장

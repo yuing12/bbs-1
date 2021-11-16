@@ -1,0 +1,37 @@
+package mmms.member.action;
+import java.util.ArrayList;
+//7-2. 회원정보 보기
+import java.util.Scanner;
+
+import mmms.member.svc.MemberAddService;
+import mmms.member.svc.MemberListService;
+import mmms.member.svc.MemberModifyService;
+import mmms.member.util.ConsoleUtil;
+import mmms.member.vo.Member;
+
+public class MemberModifyAction implements Action {
+
+	@Override
+	public void execute(Scanner sc) throws Exception {
+//		//서비스 -> 
+		ConsoleUtil cu = new ConsoleUtil();
+		String name = cu.getName("수정함",sc);//회원등록 입력 완성 내용
+		
+		MemberModifyService membermodifyservice = new MemberModifyService(); // Dao -> service
+
+		
+		
+//		boolean isAddSuccess = memberaddservice.addMember(newMember);// service가 잘됐으면 true
+	   
+		
+		if(updateCount) {//그걸 우리가 알수 있도록 출력값주기
+	    	cu.printModifySuccessMessage(newMember);
+	    }else {
+	    	cu.printModifyFailMessage(newMember);
+	    }
+		
+		
+
+	}
+
+}

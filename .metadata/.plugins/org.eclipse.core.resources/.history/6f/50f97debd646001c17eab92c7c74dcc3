@@ -1,0 +1,24 @@
+package mmms.member.action;
+import java.util.ArrayList;
+//7-2. 회원정보 보기
+import java.util.Scanner;
+
+import mmms.member.svc.MemberListService;
+import mmms.member.util.ConsoleUtil;
+import mmms.member.vo.Member;
+
+public class MemberListAction implements Action {
+
+	@Override
+	public void execute(Scanner sc) throws Exception {
+		//객체 생성
+		ConsoleUtil cu = new ConsoleUtil();
+		MemberListService memberListService = new MemberListService();
+		ArrayList<Member> arrayList =memberListService.getMemberList();
+		cu.printMemberList(arrayList); //select all 출력
+		
+		
+
+	}
+
+}
